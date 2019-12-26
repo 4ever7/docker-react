@@ -1,0 +1,19 @@
+version: '2'
+services:
+  web:
+    build:
+       context: . #current working directory
+       dockerfile: Dockerfile.dev #specific dockerfile to use when building 
+    ports:
+       - "3000:3000"
+    volumes:
+       - /app/node_modules #do not try to map a folder onto node_module dir
+       - .:/app  #map current folder outside the container to /app folder inside
+  test:
+     build:
+       context: . #current working directory
+       dockerfile: Dockerfile.dev #specific dockerfile to use when building
+     volumes:
+       - /app/node_modules #do not try to map a folder onto node_module dir
+       - .:/app  #map current folder outside the container to /app folder inside
+     command: ["npm", "run", "test"]
